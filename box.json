@@ -16,7 +16,7 @@
     }
   ],
   "stub": true,
-  "datetime": "app_version",
+  "git-tag": "app_version",
   "replacements": {
     "app_name": "blow"
   }

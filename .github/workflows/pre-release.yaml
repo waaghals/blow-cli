@@ -16,7 +16,8 @@ jobs:
         run: "composer install"
       - name: "Box application"
         run: "vendor/bin/box compile"
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: "Release"
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
