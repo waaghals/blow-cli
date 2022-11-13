@@ -1,0 +1,24 @@
+name: "release"
+run-name: "Releasing ${{ github.ref }}"
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  tagged-release:
+    name: "Create release"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+      - name: "Composer install"
+        run: "composer install"
+      - name: "Box application"
+        run: "vendor/bin/box compile"
+      - name: "Release"
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            bin/*
