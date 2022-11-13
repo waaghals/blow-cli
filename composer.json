@@ -1,0 +1,17 @@
+{
+    "require": {
+        "symfony/console": "^6.1",
+        "aws/aws-sdk-php": "^3.240",
+        "symfony/process": "^6.1",
+        "ext-sockets": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.1",
+        "humbug/box": "^4.1"
+    }
+}
