@@ -3,17 +3,8 @@
   "main": "src/index.php",
   "output": "bin/blow",
   "directories": [
-    "src"
-  ],
-  "finder": [
-    {
-      "name": "*.php",
-      "exclude": [
-        "test",
-        "tests"
-      ],
-      "in": "vendor"
-    }
+    "src",
+    "vendor"
   ],
   "stub": true,
   "git-tag": "app_version",
