@@ -15,9 +15,9 @@ class Files
         return sprintf('%s/%s.json', self::ssoCacheDir(), utf8_encode(sha1($startUrl)));
     }
 
-    public static function clientCredentials(): string
+    public static function clientCredentials(string $region): string
     {
-        return sprintf('%s/client_credentials_%s.json', self::ssoCacheDir(), APP_NAME);
+        return sprintf('%s/client_credentials_%s_%s.json', self::ssoCacheDir(), APP_NAME, $region);
     }
 
     private static function ssoCacheDir(): string

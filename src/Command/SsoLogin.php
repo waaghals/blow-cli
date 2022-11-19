@@ -61,9 +61,9 @@ class SsoLogin extends Command
         return $clientCredentials['clientSecretExpiresAt'] > time();
     }
 
-    private static function readClientCredentials(): ?array
+    private static function readClientCredentials(string $region): ?array
     {
-        $fileName = Files::clientCredentials();
+        $fileName = Files::clientCredentials($region);
         if (!@is_readable($fileName)) {
             return null;
         }
@@ -72,9 +72,14 @@ class SsoLogin extends Command
         return json_decode($content, true);
     }
 
-    private static function writeClientCredentials(array $clientCredentials): void
+    private static function writeClientCredentials(string $region, array $clientCredentials): void
     {
-        file_put_contents(Files::clientCredentials(), json_encode($clientCredentials, JSON_PRETTY_PRINT));
+        $filePath = Files::clientCredentials($region);
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0777, true);
+        }
+        file_put_contents($filePath, json_encode($clientCredentials, JSON_PRETTY_PRINT));
     }
 
     private static function readAccessToken(string $startUrl): ?array
@@ -132,7 +137,7 @@ class SsoLogin extends Command
             'credentials' => false,
         ]);
 
-        $clientCredentials = self::readClientCredentials();
+        $clientCredentials = self::readClientCredentials($profileData['sso_region']);
         if (!self::isValidClientCredentials($clientCredentials)) {
             $io->text('No valid client credentials found.');
 
@@ -145,7 +150,7 @@ class SsoLogin extends Command
                 return Command::FAILURE;
             }
 
-            self::writeClientCredentials($clientCredentials);
+            self::writeClientCredentials($profileData['sso_region'], $clientCredentials);
             $io->text('Stored new client credentials.');
         }
 
