@@ -125,7 +125,7 @@ class DatabaseProxy extends Command
         $filters = [
             [
                 'Name' => 'tag:Name',
-                'Values' => ['bastion-host', 'bastion'],
+                'Values' => ['bastion-host'],
             ],
         ];
         $instances = $client->describeInstances(['Filters' => $filters])->toArray();
