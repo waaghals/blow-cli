@@ -127,6 +127,10 @@ class DatabaseProxy extends Command
                 'Name' => 'tag:Name',
                 'Values' => ['bastion-host'],
             ],
+            [
+                'Name' => 'instance-state-name',
+                'Values' => ['pending', 'running', 'stopped'],
+            ],
         ];
         $instances = $client->describeInstances(['Filters' => $filters])->toArray();
 
